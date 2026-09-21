@@ -1,0 +1,105 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  width: 320px;
+  background: #1a1310;
+  color: #f5ece5;
+}
+
+.app {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.app h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #ff7a3d;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer__clock {
+  font-size: 2.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.block-grid__cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #2b211c;
+  font-size: 0.8rem;
+}
+
+.block-grid__cell--completed {
+  background: #ff7a3d;
+  color: #1a1310;
+}
+
+.block-grid__cell--active {
+  outline: 2px solid #ff7a3d;
+}
+
+.rewards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rewards--empty {
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+.auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth__error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+}
+
+.auth__toggle {
+  background: none;
+  border: none;
+  color: #ff7a3d;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
