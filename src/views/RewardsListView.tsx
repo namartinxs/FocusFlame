@@ -1,10 +1,10 @@
-import type { Reward } from '../../types'
+import type { Reward } from '../models/Reward'
 
-interface RewardsListProps {
+interface RewardsListViewProps {
   rewards: Reward[]
 }
 
-export function RewardsList({ rewards }: RewardsListProps) {
+export function RewardsListView({ rewards }: RewardsListViewProps) {
   if (rewards.length === 0) {
     return (
       <p className="rewards rewards--empty">

@@ -2,7 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 export const BLOCK_DURATION_SECONDS = 10 * 60
 
-export function useBlockTimer(onBlockComplete: () => void) {
+export interface BlockTimer {
+  secondsLeft: number
+  isRunning: boolean
+  start(): void
+  pause(): void
+  reset(): void
+}
+
+export function useBlockTimer(onBlockComplete: () => void): BlockTimer {
   const [secondsLeft, setSecondsLeft] = useState(BLOCK_DURATION_SECONDS)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef<number>(undefined)

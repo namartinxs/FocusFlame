@@ -1,11 +1,11 @@
-import type { FocusBlock } from '../../types'
+import type { FocusBlock } from '../models/FocusBlock'
 
-interface BlockGridProps {
+interface BlockGridViewProps {
   blocks: FocusBlock[]
   activeBlockIndex: number
 }
 
-export function BlockGrid({ blocks, activeBlockIndex }: BlockGridProps) {
+export function BlockGridView({ blocks, activeBlockIndex }: BlockGridViewProps) {
   return (
     <section className="block-grid">
       {blocks.map((block) => (

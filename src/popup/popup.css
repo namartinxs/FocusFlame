@@ -96,6 +96,11 @@ body {
   font-size: 0.8rem;
 }
 
+.auth__info {
+  color: #7ad3ff;
+  font-size: 0.8rem;
+}
+
 .auth__toggle {
   background: none;
   border: none;

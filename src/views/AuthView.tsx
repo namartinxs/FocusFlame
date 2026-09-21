@@ -1,35 +1,33 @@
-import type { Session } from '@supabase/supabase-js'
 import { useState } from 'react'
-import { supabase } from '../../lib/supabase'
+import type { AuthCredentials } from '../repositories/AuthRepository'
 
-interface AuthPanelProps {
-  onSignedIn: (session: Session) => void
+interface AuthViewProps {
+  loading: boolean
+  error: string | null
+  infoMessage: string | null
+  onSignIn(credentials: AuthCredentials): void
+  onSignUp(credentials: AuthCredentials): void
 }
 
-export function AuthPanel({ onSignedIn }: AuthPanelProps) {
+export function AuthView({
+  loading,
+  error,
+  infoMessage,
+  onSignIn,
+  onSignUp,
+}: AuthViewProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    setLoading(true)
-    setError(null)
-
-    const { data, error: authError } =
-      mode === 'signIn'
-        ? await supabase.auth.signInWithPassword({ email, password })
-        : await supabase.auth.signUp({ email, password })
-
-    setLoading(false)
-
-    if (authError) {
-      setError(authError.message)
-      return
+    const credentials: AuthCredentials = { email, password }
+    if (mode === 'signIn') {
+      onSignIn(credentials)
+    } else {
+      onSignUp(credentials)
     }
-    if (data.session) onSignedIn(data.session)
   }
 
   return (
@@ -54,6 +52,7 @@ export function AuthPanel({ onSignedIn }: AuthPanelProps) {
           {mode === 'signIn' ? 'Entrar' : 'Criar conta'}
         </button>
         {error && <p className="auth__error">{error}</p>}
+        {infoMessage && <p className="auth__info">{infoMessage}</p>}
       </form>
       <button
         type="button"

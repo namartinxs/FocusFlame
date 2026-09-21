@@ -25,23 +25,31 @@ Para carregar a extensão no Chrome:
 
 ## Scripts
 
-| Comando | Ação |
-| --- | --- |
-| `npm run dev` | Build de desenvolvimento com hot reload |
-| `npm run build` | Type-check (`tsc -b`) + build de produção em `dist/` |
-| `npm run lint` | Lint com oxlint |
-| `npm run preview` | Preview do build de produção |
+| Comando                | Ação                                                 |
+| ---------------------- | ---------------------------------------------------- |
+| `npm run dev`          | Build de desenvolvimento com hot reload              |
+| `npm run build`        | Type-check (`tsc -b`) + build de produção em `dist/` |
+| `npm run lint`         | Lint com ESLint (typescript-eslint)                  |
+| `npm run format`       | Formata o projeto com Prettier                       |
+| `npm run format:check` | Verifica formatação sem alterar arquivos             |
+| `npm run preview`      | Preview do build de produção                         |
 
 ## Estrutura
 
+Organização em MVC (ver [AGENTS.md](./AGENTS.md#arquitetura) para detalhes e
+como o SOLID se aplica a cada camada):
+
 ```
-manifest.config.ts      # Manifest V3 (nome, permissões, popup, background)
+manifest.config.ts    # Manifest V3 (nome, permissões, popup, background)
 src/
-  popup/                # UI React exibida ao clicar no ícone da extensão
-    components/
+  models/             # Model: tipos de domínio + funções puras (FocusBlock, Reward, FocusSession)
+  repositories/        # Acesso a sistemas externos por interface (AuthRepository -> SupabaseAuthRepository)
+  services/            # Regra de negócio sem I/O (RewardStrategy -> FlameRewardStrategy)
+  controllers/          # Controller: hooks React (useAuthController, useFocusSessionController, useBlockTimer)
+  views/                # View: componentes apresentacionais (AuthView, TimerView, BlockGridView, RewardsListView)
+  popup/                # Composition root exibido ao clicar no ícone da extensão
+    App.tsx
   background/           # Service worker (MV3)
   lib/
-    supabase.ts          # Cliente Supabase
-    timer.ts             # Hook do timer de bloco (10 min)
-  types/                 # Tipos compartilhados (FocusBlock, Reward, FocusSession)
+    supabase.ts          # Fábrica do cliente Supabase
 ```
